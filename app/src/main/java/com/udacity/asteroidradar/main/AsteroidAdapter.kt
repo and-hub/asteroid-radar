@@ -17,10 +17,7 @@ class AsteroidAdapter(private val onClickListener: OnClickListener) :
 
     override fun onBindViewHolder(holder: AsteroidViewHolder, position: Int) {
         val asteroid = getItem(position)
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(asteroid)
-        }
-        holder.bind(asteroid)
+        holder.bind(asteroid, onClickListener)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Asteroid>() {
@@ -36,8 +33,9 @@ class AsteroidAdapter(private val onClickListener: OnClickListener) :
     class AsteroidViewHolder(private var binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(asteroid: Asteroid) {
+        fun bind(asteroid: Asteroid, onClickListener: OnClickListener) {
             binding.asteroid = asteroid
+            binding.onClickListener = onClickListener
             binding.executePendingBindings()
         }
 
