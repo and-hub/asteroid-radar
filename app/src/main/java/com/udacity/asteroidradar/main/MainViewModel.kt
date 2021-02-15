@@ -1,11 +1,32 @@
 package com.udacity.asteroidradar.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.*
 import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.database.AsteroidsDatabase
+import com.udacity.asteroidradar.database.getDatabase
+import com.udacity.asteroidradar.repository.AsteroidsRepository
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.lang.Exception
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val database = getDatabase(application)
+    private val asteroidsRepository = AsteroidsRepository(database)
+
+    init {
+        viewModelScope.launch {
+            try {
+                asteroidsRepository.refreshAsteroids()
+            } catch (e: Exception) {
+                Timber.e(e)
+            }
+        }
+    }
+
+    val asteroids = asteroidsRepository.asteroids
 
     private val _navigateToSelectedAsteroid = MutableLiveData<Asteroid?>()
 
@@ -19,54 +40,4 @@ class MainViewModel : ViewModel() {
     fun displayAsteroidDetailsComplete() {
         _navigateToSelectedAsteroid.value = null
     }
-
-    val placeholderAsteroids =
-        listOf(
-            Asteroid(
-                1234567,
-                "68347 (2002 KB67)",
-                "2020-02-08",
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                true
-            ), Asteroid(
-                1234567,
-                "68347 (2003 KB67)",
-                "2020-02-08",
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                false
-            ), Asteroid(
-                1234567,
-                "68347 (2004 KB67)",
-                "2020-02-08",
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                true
-            ), Asteroid(
-                1234567,
-                "68347 (2021 KB67)",
-                "2020-02-08",
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                false
-            ), Asteroid(
-                1234567,
-                "68347 (2001 KB67)",
-                "2020-02-08",
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                true
-            )
-        )
 }

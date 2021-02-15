@@ -1,19 +1,16 @@
-package com.udacity.asteroidradar.database
+package com.udacity.asteroidradar.api
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.Constants
-import com.udacity.asteroidradar.toFormattedDate
+import com.udacity.asteroidradar.database.DatabaseAsteroid
+import com.udacity.asteroidradar.toDateMillis
 import java.text.SimpleDateFormat
 import java.util.*
 
-@Entity(tableName = "database_asteroid")
-data class DatabaseAsteroid(
-    @PrimaryKey
+data class NetworkAsteroid(
     val id: Long,
     val codename: String,
-    val closeApproachDateMillis: Long,
+    val closeApproachDate: String,
     val absoluteMagnitude: Double,
     val estimatedDiameter: Double,
     val relativeVelocity: Double,
@@ -21,12 +18,12 @@ data class DatabaseAsteroid(
     val isPotentiallyHazardous: Boolean
 )
 
-fun List<DatabaseAsteroid>.asDomainModel(): List<Asteroid> {
+fun ArrayList<NetworkAsteroid>.asDatabaseModel(): List<DatabaseAsteroid> {
     return map {
-        Asteroid(
+        DatabaseAsteroid(
             id = it.id,
             codename = it.codename,
-            closeApproachDate = it.closeApproachDateMillis.toFormattedDate(),
+            closeApproachDateMillis = it.closeApproachDate.toDateMillis(),
             absoluteMagnitude = it.absoluteMagnitude,
             estimatedDiameter = it.estimatedDiameter,
             relativeVelocity = it.relativeVelocity,

@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.udacity.asteroidradar.main.AsteroidAdapter
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
@@ -48,3 +50,10 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asteroid>?) {
     val adapter = recyclerView.adapter as AsteroidAdapter
     adapter.submitList(data)
 }
+
+//@BindingAdapter("dateText")
+//fun bindTextViewToDateMillis(textView: TextView, dateMillis: Long) {
+//    val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+//    textView.text = dateFormat.format(dateMillis)
+//
+//}
