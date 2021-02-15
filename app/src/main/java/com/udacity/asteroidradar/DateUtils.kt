@@ -3,6 +3,11 @@ package com.udacity.asteroidradar
 import java.text.SimpleDateFormat
 import java.util.*
 
+enum class Period(val numberOfDays: Int) {
+    ONE_DAY(1),
+    ONE_WEEK(7)
+}
+
 fun String.toDateMillis(): Long {
     val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
     val date = dateFormat.parse(this)
@@ -22,9 +27,9 @@ fun getToday(): String {
     return dateFormat.format(currentTime)
 }
 
-fun getDefaultEndDate(): String {
+fun getEndDate(period: Period): String {
     val calendar = Calendar.getInstance()
-    calendar.add(Calendar.DAY_OF_YEAR, Constants.DEFAULT_END_DATE_DAYS)
+    calendar.add(Calendar.DAY_OF_YEAR, period.numberOfDays - 1)
     val endTime = calendar.time
     val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
     return dateFormat.format(endTime)
@@ -36,14 +41,14 @@ fun getTodayMillis(): Long {
     return calendar.timeInMillis
 }
 
-fun getEndDateMillis(numberOfDays: Int): Long {
+fun getEndDateMillis(period: Period): Long {
     val calendar = Calendar.getInstance()
-    calendar.add(Calendar.DAY_OF_YEAR, numberOfDays)
+    calendar.add(Calendar.DAY_OF_YEAR, period.numberOfDays - 1)
     calendar.resetTime()
     return calendar.timeInMillis
 }
 
-private fun Calendar.resetTime(){
+private fun Calendar.resetTime() {
     set(Calendar.HOUR_OF_DAY, 0)
     set(Calendar.MINUTE, 0)
     set(Calendar.SECOND, 0)

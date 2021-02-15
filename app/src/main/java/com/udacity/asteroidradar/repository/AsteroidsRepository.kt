@@ -16,15 +16,15 @@ class AsteroidsRepository(private val database: AsteroidsDatabase) {
 
     val asteroids: LiveData<List<Asteroid>> = Transformations.map(
         database.asteroidDao.getAsteroids(
-            getTodayMillis(), getEndDateMillis(Constants.DEFAULT_END_DATE_DAYS)
+            getTodayMillis(), getEndDateMillis(Period.ONE_WEEK)
         )
     ) {
         it.asDomainModel()
     }
 
-    suspend fun refreshAsteroids() {
+    suspend fun refreshAsteroids(period: Period) {
         withContext(Dispatchers.IO) {
-            val jsonResult = Network.nasaApiService.getAsteroids(getToday(), getDefaultEndDate())
+            val jsonResult = Network.nasaApiService.getAsteroids(getToday(), getEndDate(period))
             val asteroids = parseAsteroidsJsonResult(JSONObject(jsonResult))
             database.asteroidDao.insertAll(asteroids.asDatabaseModel())
         }

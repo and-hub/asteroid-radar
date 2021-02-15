@@ -1,10 +1,10 @@
 package com.udacity.asteroidradar.main
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.udacity.asteroidradar.Asteroid
-import com.udacity.asteroidradar.database.AsteroidsDatabase
+import com.udacity.asteroidradar.Constants
+import com.udacity.asteroidradar.Period
 import com.udacity.asteroidradar.database.getDatabase
 import com.udacity.asteroidradar.repository.AsteroidsRepository
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     init {
         viewModelScope.launch {
             try {
-                asteroidsRepository.refreshAsteroids()
+                asteroidsRepository.refreshAsteroids(Period.ONE_WEEK)
             } catch (e: Exception) {
                 Timber.e(e)
             }
