@@ -1,7 +1,10 @@
 package com.udacity.asteroidradar.api
 
+import androidx.lifecycle.LiveData
 import com.udacity.asteroidradar.Constants
+import com.udacity.asteroidradar.PictureOfDay
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,11 +16,15 @@ interface NasaApiService {
         @Query("end_date") endDate: String,
         @Query("api_key") apiKey: String = Constants.API_KEY
     ): String
+
+    @GET("planetary/apod")
+    suspend fun getPictureOfDay(@Query("api_key") apiKey: String = Constants.API_KEY): PictureOfDay
 }
 
 object Network {
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(ScalarsConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create())
         .baseUrl(Constants.BASE_URL)
         .build()
 

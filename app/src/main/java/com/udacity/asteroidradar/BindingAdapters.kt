@@ -1,12 +1,12 @@
 package com.udacity.asteroidradar
 
-import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.udacity.asteroidradar.main.AsteroidAdapter
-import java.text.SimpleDateFormat
 import java.util.*
 
 @BindingAdapter("statusIcon")
@@ -51,9 +51,25 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asteroid>?) {
     adapter.submitList(data)
 }
 
-//@BindingAdapter("dateText")
-//fun bindTextViewToDateMillis(textView: TextView, dateMillis: Long) {
-//    val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
-//    textView.text = dateFormat.format(dateMillis)
+@BindingAdapter("pictureOfDay")
+fun bindImageViewToPictureOfDay(imageView: ImageView, pictureOfDay: PictureOfDay?) {
+    if (pictureOfDay != null && pictureOfDay.mediaType == "image") {
+        Picasso.get()
+            .load(pictureOfDay.url)
+            .placeholder(R.drawable.loading_animation)
+            .error(R.drawable.ic_broken_image)
+            .into(imageView)
+    }
+}
+
+//@BindingAdapter("pictureOfDay")
+//fun bindImageViewToPictureOfDay(imageView: ImageView, pictureOfDay: PictureOfDay?) {
+//    if (false) {
+//        Picasso.get()
+//            .load("https://apod.nasa.gov/apod/image/2102/rosette_BlockPuckett_960.jpg")
+//            .placeholder(R.drawable.loading_animation)
+//            .error(R.drawable.ic_broken_image)
+//            .into(imageView)
+//    }
 //
 //}
