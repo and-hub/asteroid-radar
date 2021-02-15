@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.Constants
 import com.udacity.asteroidradar.Period
+import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.database.getDatabase
 import com.udacity.asteroidradar.repository.AsteroidsRepository
 import kotlinx.coroutines.launch
@@ -14,12 +15,14 @@ import java.lang.Exception
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = getDatabase(application)
+
     private val asteroidsRepository = AsteroidsRepository(database)
 
     init {
         viewModelScope.launch {
             try {
                 asteroidsRepository.refreshAsteroids(Period.ONE_WEEK)
+                asteroidsRepository.refreshPictureOfDay()
             } catch (e: Exception) {
                 Timber.e(e)
             }
@@ -27,6 +30,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     val asteroids = asteroidsRepository.asteroids
+
+    val pictureOfDay = asteroidsRepository.pictureOfDay
 
     private val _navigateToSelectedAsteroid = MutableLiveData<Asteroid?>()
 
