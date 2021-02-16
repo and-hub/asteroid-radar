@@ -29,7 +29,7 @@ class AsteroidsRepository(private val database: AsteroidsDatabase) {
 
     suspend fun refreshAsteroids(period: Period) {
         withContext(Dispatchers.IO) {
-            val jsonResult = Network.nasaApiService.getAsteroids(getToday(), getEndDate(period))
+            val jsonResult = Network.asteroidsNeoWsService.getAsteroids(getToday(), getEndDate(period))
             val asteroids = parseAsteroidsJsonResult(JSONObject(jsonResult))
             database.asteroidDao.insertAll(asteroids.asDatabaseModel())
         }
@@ -37,7 +37,7 @@ class AsteroidsRepository(private val database: AsteroidsDatabase) {
 
     suspend fun refreshPictureOfDay() {
         withContext(Dispatchers.IO) {
-            val pictureOfDay = Network.nasaApiService.getPictureOfDay()
+            val pictureOfDay = Network.apodService.getPictureOfDay()
             database.pictureOfDayDao.insert(pictureOfDay.asDatabaseModel())
         }
     }

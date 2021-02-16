@@ -1,15 +1,10 @@
 package com.udacity.asteroidradar.database
 
-import android.provider.ContactsContract
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.squareup.moshi.Json
 import com.udacity.asteroidradar.Asteroid
-import com.udacity.asteroidradar.Constants
 import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.toFormattedDate
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Entity(tableName = "database_asteroid")
 data class DatabaseAsteroid(

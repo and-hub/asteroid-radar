@@ -61,15 +61,3 @@ fun bindImageViewToPictureOfDay(imageView: ImageView, pictureOfDay: PictureOfDay
             .into(imageView)
     }
 }
-
-//@BindingAdapter("pictureOfDay")
-//fun bindImageViewToPictureOfDay(imageView: ImageView, pictureOfDay: PictureOfDay?) {
-//    if (false) {
-//        Picasso.get()
-//            .load("https://apod.nasa.gov/apod/image/2102/rosette_BlockPuckett_960.jpg")
-//            .placeholder(R.drawable.loading_animation)
-//            .error(R.drawable.ic_broken_image)
-//            .into(imageView)
-//    }
-//
-//}

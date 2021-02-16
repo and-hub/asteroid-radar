@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface PictureOfDayDao {
 
-    @Query("SELECT * FROM database_picture_of_day LIMIT 1")
+    @Query("SELECT * FROM database_picture_of_day ORDER BY id DESC LIMIT 1")
     fun getPictureOfDay(): LiveData<DatabasePictureOfDay>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
