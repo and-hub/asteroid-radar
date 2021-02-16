@@ -6,6 +6,7 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.udacity.asteroidradar.Constants.IMAGE_MEDIA_TYPE
 import com.udacity.asteroidradar.main.AsteroidAdapter
 import java.util.*
 
@@ -53,7 +54,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Asteroid>?) {
 
 @BindingAdapter("pictureOfDay")
 fun bindImageViewToPictureOfDay(imageView: ImageView, pictureOfDay: PictureOfDay?) {
-    if (pictureOfDay != null && pictureOfDay.mediaType == "image") {
+    if (pictureOfDay != null && pictureOfDay.mediaType == IMAGE_MEDIA_TYPE) {
         Picasso.get()
             .load(pictureOfDay.url)
             .placeholder(R.drawable.loading_animation)
