@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
 
+enum class AsteroidsFilter { SHOW_WEEK, SHOW_TODAY, SHOW_SAVED }
+
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = getDatabase(application)
@@ -28,7 +30,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    val asteroids = asteroidsRepository.asteroids
+    private var _asteroids = asteroidsRepository.weekAsteroids
+
+    val asteroids: LiveData<List<Asteroid>>
+        get() = _asteroids
 
     val pictureOfDay = asteroidsRepository.pictureOfDay
 
@@ -54,5 +59,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun displayAsteroidDetailsComplete() {
         _navigateToSelectedAsteroid.value = null
+    }
+
+    fun filterAsteroids(filter: AsteroidsFilter) {
+        _asteroids = when (filter) {
+            AsteroidsFilter.SHOW_SAVED -> asteroidsRepository.savedAsteroids
+            AsteroidsFilter.SHOW_TODAY -> asteroidsRepository.todayAsteroids
+            AsteroidsFilter.SHOW_WEEK -> asteroidsRepository.weekAsteroids
+        }
     }
 }
