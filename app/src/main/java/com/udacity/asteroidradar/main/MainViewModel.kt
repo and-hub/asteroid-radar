@@ -38,14 +38,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val pictureOfDay = asteroidsRepository.pictureOfDay
 
     val pictureOfDayDescription = Transformations.map(pictureOfDay) {
-        if (it.mediaType == IMAGE_MEDIA_TYPE)
-            application.applicationContext.getString(
-                R.string.nasa_picture_of_day_content_description_format,
-                it.title
-            )
-        else
-            application.applicationContext.getString(R.string.this_is_nasa_s_picture_of_day_showing_nothing_yet)
-
+        it?.let {
+            if (it.mediaType == IMAGE_MEDIA_TYPE)
+                application.applicationContext.getString(
+                    R.string.nasa_picture_of_day_content_description_format,
+                    it.title
+                )
+            else
+                application.applicationContext.getString(R.string.this_is_nasa_s_picture_of_day_showing_nothing_yet)
+        }
     }
 
     private val _navigateToSelectedAsteroid = MutableLiveData<Asteroid?>()
