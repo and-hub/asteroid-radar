@@ -24,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/asteroid_safe" />
+            tools:srcCompat="@drawable/asteroid_hazardous" />
 
         <ScrollView
             android:layout_width="0dp"
@@ -48,7 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/close_approach_data_title"
-                        android:textColor="@color/default_text_color" />
+                        style="@style/asteroid_details_title_style" />
 
                     <TextView
                         android:id="@+id/close_approach_date"
@@ -56,8 +56,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@{asteroid.closeApproachDate}"
-                        android:textColor="@color/default_text_color"
-                        tools:text="2020-02-01" />
+                        tools:text="2020-02-01"
+                        style="@style/asteroid_details_value_style" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -74,6 +74,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            style="@style/asteroid_details_title_style"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/absolute_magnitude_title"
@@ -81,6 +82,7 @@
 
                         <TextView
                             android:id="@+id/absolute_magnitude"
+                            style="@style/asteroid_details_value_style"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
@@ -100,6 +102,7 @@
                 </LinearLayout>
 
                 <TextView
+                    style="@style/asteroid_details_title_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -108,6 +111,7 @@
 
                 <TextView
                     android:id="@+id/estimated_diameter"
+                    style="@style/asteroid_details_value_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -116,6 +120,7 @@
                     tools:text="0.82 km" />
 
                 <TextView
+                    style="@style/asteroid_details_title_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -124,6 +129,7 @@
 
                 <TextView
                     android:id="@+id/relative_velocity"
+                    style="@style/asteroid_details_value_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -132,6 +138,7 @@
                     tools:text="11.9 km/s" />
 
                 <TextView
+                    style="@style/asteroid_details_title_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -140,6 +147,7 @@
 
                 <TextView
                     android:id="@+id/distance_from_earth"
+                    style="@style/asteroid_details_value_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
