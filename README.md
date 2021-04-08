@@ -5,7 +5,7 @@ accessibility feature which is implementing content descriptions for images and 
 ## Instalation
 Clone this repository and import into **Android Studio**
 ```
-git clone https://github.com/and-hub/asteroid-radar.git
+git clone https://github.com/fbogulak/asteroid-radar.git
 ```
 
 ## API key
